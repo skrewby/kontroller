@@ -16,7 +16,7 @@ if [[ $1 == "help" || -z $1 ]]; then
     helpFunction
 elif [[ $1 == "flash" ]]; then
     (mkdir -p bin)
-    (cmake -DCMAKE_TOOLCHAIN_FILE=./cmake/gcc-arm-none-eabi.cmake -S . -B bin)
+    (cmake -DCMAKE_TOOLCHAIN_FILE="$TOOLCHAIN_FILE" -S . -B bin)
     (cd bin; cmake --build .)
     (cp bin/compile_commands.json .)
     (cd bin; openocd -f interface/stlink.cfg -f target/stm32l4x.cfg -c "program kontroller.elf verify reset exit")
