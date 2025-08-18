@@ -35,13 +35,6 @@ SECTIONS {
         _sdata = .;
         *(.data)
         *(.data*)
-        FILL(0xAB)
-        . += 1;
-        FILL(0xCD)
-        . += 1;
-        FILL(0xEF)
-        . += 1;
-        FILL(0x00)
         . = ALIGN(8);
         _edata = .;
     } > sram AT> flash
@@ -51,8 +44,6 @@ SECTIONS {
         _sbss = .;
         *(.bss)
         *(.bss*)
-        FILL(0xFF)
-        . += 8;
         . = ALIGN(8);
         _ebss = .;
     } > sram
