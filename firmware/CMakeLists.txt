@@ -17,6 +17,10 @@ set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 # in editors such as VSCode and VIM
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+# Set required options for cortex m4
+set(MCPU cortex-m4)
+add_compile_options(-mcpu=${MCPU} -mthumb)
+add_compile_options(-ffunction-sections -fdata-sections -fno-common -fmessage-length=0)
 # Compile with debug symbols
 add_compile_options(-ggdb)
 
