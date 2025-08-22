@@ -5,8 +5,7 @@ int main() {
 
     while (1) {
         hal_led_toggle();
-        for (int i = 0; i < 100000; i++) {
-        }
+        hal_delay(1000);
     }
 
     return 0;

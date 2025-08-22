@@ -2,8 +2,9 @@
 
 #include <stdint.h>
 
-#define RCC_BASE   (0x40021000UL)
-#define GPIOB_BASE (0x48000400UL)
+#define SYSTICK_BASE (0xE000E010UL)
+#define RCC_BASE     (0x40021000UL)
+#define GPIOB_BASE   (0x48000400UL)
 
 typedef struct {
     volatile uint32_t CR;
@@ -62,5 +63,13 @@ typedef struct {
     volatile uint32_t BRR;
 } GPIO_Struct;
 
+typedef struct {
+    volatile uint32_t CSR;
+    volatile uint32_t RVR;
+    volatile uint32_t CVR;
+    volatile uint32_t CALIB;
+} SysTick_Struct;
+
 static RCC_Struct *RCC = (RCC_Struct *)RCC_BASE;
 static GPIO_Struct *GPIOB = (GPIO_Struct *)GPIOB_BASE;
+static SysTick_Struct *SYSTICK = (SysTick_Struct *)SYSTICK_BASE;
