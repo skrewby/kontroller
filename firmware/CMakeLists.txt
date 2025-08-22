@@ -27,6 +27,7 @@ add_compile_options(-ggdb)
 # Add our C and assembly files
 file(GLOB_RECURSE SOURCES
     "src/*.*"
+    "hal/src/*.*"
     "${CMAKE_SOURCE_DIR}/startup.s"
 )
 
@@ -37,6 +38,7 @@ set(LINKER_SCRIPT ${CMAKE_SOURCE_DIR}/Linker.ld)
 # and libraries for linking
 add_link_options(-T ${LINKER_SCRIPT} -nostdlib)
 
+include_directories(${PROJECT_NAME} ${CMAKE_SOURCE_DIR}/hal/inc)
 # Create our executable
 add_executable(${PROJECT_NAME}.elf ${SOURCES} ${LINKER_SCRIPT})
 
