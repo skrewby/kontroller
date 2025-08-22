@@ -9,11 +9,20 @@ void gpio_init(GPIO_Struct *GPIO, GPIO_Init_Struct *init) {
     GPIO->MODER &= ~double_mask;
     GPIO->MODER |= (init->mode << double_pin);
 
-    if (init->mode == GPIO_Mode_Output) {
+    if (init->mode == GPIO_Mode_Output || init->mode == GPIO_Mode_Alternate) {
         GPIO->OTYPER &= ~mask;
         GPIO->OTYPER |= (init->output_type << init->pin);
         GPIO->OSPEEDR &= ~double_mask;
         GPIO->OSPEEDR |= (init->output_speed << double_pin);
+    }
+
+    if (init->mode == GPIO_Mode_Alternate) {
+        uint8_t bit = (init->pin % 8) * 4;
+        if (init->pin > 7) {
+            GPIO->AFRH |= (init->alternate_function << bit);
+        } else {
+            GPIO->AFRL |= (init->alternate_function << bit);
+        }
     }
 
     GPIO->PUPDR &= ~double_mask;

@@ -4,7 +4,10 @@
 
 static uint32_t system_clock = 0;
 
+#define RCC_AHB2ENR_GPIOAEN (1U << 0)
 #define RCC_AHB2ENR_GPIOBEN (1U << 1)
+
+#define RCC_APB1ENR1_USART2EN (1U << 17)
 
 #define RCC_CR_HSION  (1U << 8)
 #define RCC_CR_HSIRDY (1U << 10)
@@ -46,7 +49,9 @@ void clock_init(RCC_Init_Struct *init) {
         hsi_setup();
         break;
     }
-    RCC->AHB2ENR |= RCC_AHB2ENR_GPIOBEN;
+
+    RCC->AHB2ENR |= (RCC_AHB2ENR_GPIOAEN | RCC_AHB2ENR_GPIOBEN);
+    RCC->APB1ENR1 |= RCC_APB1ENR1_USART2EN;
 }
 
 uint32_t clock_frequency() { return system_clock; }
