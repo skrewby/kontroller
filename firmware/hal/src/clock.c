@@ -6,6 +6,8 @@ static uint32_t system_clock = 0;
 
 #define RCC_AHB2ENR_GPIOAEN (1U << 0)
 #define RCC_AHB2ENR_GPIOBEN (1U << 1)
+#define RCC_AHB2ENR_GPIOCEN (1U << 2)
+#define RCC_AHB2ENR_ADCEN   (1U << 13)
 
 #define RCC_APB1ENR1_USART2EN (1U << 17)
 
@@ -50,7 +52,8 @@ void clock_init(RCC_Init_Struct *init) {
         break;
     }
 
-    RCC->AHB2ENR |= (RCC_AHB2ENR_GPIOAEN | RCC_AHB2ENR_GPIOBEN);
+    RCC->AHB2ENR |=
+        (RCC_AHB2ENR_GPIOAEN | RCC_AHB2ENR_GPIOBEN | RCC_AHB2ENR_GPIOCEN | RCC_AHB2ENR_ADCEN);
     RCC->APB1ENR1 |= RCC_APB1ENR1_USART2EN;
 }
 

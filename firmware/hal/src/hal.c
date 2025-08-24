@@ -1,4 +1,5 @@
 #include "hal.h"
+#include "adc.h"
 #include "clock.h"
 #include "gpio.h"
 #include "interrupts.h"
@@ -36,6 +37,7 @@ void hal_init() {
     led_init();
     systick_init();
     setup_uart();
+    adc_init();
     interrupts_enable();
 }
 
@@ -53,3 +55,5 @@ void hal_serial_write(char *msg) {
         msg++;
     }
 }
+
+uint32_t hal_joystick_position() { return adc_read(); }

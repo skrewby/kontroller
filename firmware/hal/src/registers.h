@@ -2,11 +2,14 @@
 
 #include <stdint.h>
 
-#define SYSTICK_BASE (0xE000E010UL)
-#define USART2_BASE  (0x40004400UL)
-#define RCC_BASE     (0x40021000UL)
-#define GPIOA_BASE   (0x48000000UL)
-#define GPIOB_BASE   (0x48000400UL)
+#define SYSTICK_BASE    (0xE000E010UL)
+#define USART2_BASE     (0x40004400UL)
+#define RCC_BASE        (0x40021000UL)
+#define GPIOA_BASE      (0x48000000UL)
+#define GPIOB_BASE      (0x48000400UL)
+#define GPIOC_BASE      (0x48000800UL)
+#define ADC_BASE        (0x50040000UL)
+#define ADC_COMMON_BASE (ADC_BASE + 0x300)
 
 typedef struct {
     volatile uint32_t CR;
@@ -90,8 +93,59 @@ typedef struct {
     volatile uint16_t RESERVED4;
 } USART_Struct;
 
+typedef struct {
+    volatile uint32_t ISR;
+    volatile uint32_t IER;
+    volatile uint32_t CR;
+    volatile uint32_t CFGR;
+    volatile uint32_t CFGR2;
+    volatile uint32_t SMPR1;
+    volatile uint32_t SMPR2;
+    volatile uint32_t RESERVED1;
+    volatile uint32_t TR1;
+    volatile uint32_t TR2;
+    volatile uint32_t TR3;
+    volatile uint32_t RESERVED2;
+    volatile uint32_t SQR1;
+    volatile uint32_t SQR2;
+    volatile uint32_t SQR3;
+    volatile uint32_t SQR4;
+    volatile uint32_t DR;
+    volatile uint32_t RESERVED3;
+    volatile uint32_t RESERVED4;
+    volatile uint32_t JSQR;
+    volatile uint32_t RESERVED5[4];
+    volatile uint32_t OFR1;
+    volatile uint32_t OFR2;
+    volatile uint32_t OFR3;
+    volatile uint32_t OFR4;
+    volatile uint32_t RESERVED6[4];
+    volatile uint32_t JDR1;
+    volatile uint32_t JDR2;
+    volatile uint32_t JDR3;
+    volatile uint32_t JDR4;
+    volatile uint32_t RESERVED7[4];
+    volatile uint32_t AWD2CR;
+    volatile uint32_t AWD3CR;
+    volatile uint32_t RESERVED8;
+    volatile uint32_t RESERVED9;
+    volatile uint32_t DIFSEL;
+    volatile uint32_t CALFACT;
+
+} ADC_Struct;
+
+typedef struct {
+    volatile uint32_t RESERVED1;
+    volatile uint32_t RESERVED2;
+    volatile uint32_t CCR;
+    volatile uint32_t RESERVED3;
+} ADC_Common_Struct;
+
 static RCC_Struct *RCC = (RCC_Struct *)RCC_BASE;
 static GPIO_Struct *GPIOA = (GPIO_Struct *)GPIOA_BASE;
 static GPIO_Struct *GPIOB = (GPIO_Struct *)GPIOB_BASE;
+static GPIO_Struct *GPIOC = (GPIO_Struct *)GPIOC_BASE;
 static SysTick_Struct *SYSTICK = (SysTick_Struct *)SYSTICK_BASE;
 static USART_Struct *USART2 = (USART_Struct *)USART2_BASE;
+static ADC_Struct *ADC = (ADC_Struct *)ADC_BASE;
+static ADC_Common_Struct *ADCCOMMON = (ADC_Common_Struct *)ADC_COMMON_BASE;
